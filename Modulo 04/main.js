@@ -1,15 +1,11 @@
 function checaIdade(idade) {
   // Retornar uma promise
   return new Promise(function(resolve, reject){
-    if (idade > 18) {
-      resolve();
-    } else {
-      reject();
-    }
+    idade > 18 ? resolve() : reject();
   });
  }
  
- checaIdade(15)
+ checaIdade(5)
   .then(function() {
   console.log("Maior que 18");
   })

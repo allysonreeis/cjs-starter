@@ -1,3 +1,8 @@
+/**
+ * Existem outras formas mais interessantes de resolver esse problema, porém
+ * fiz dessa maneira para explorar outros modos de resolver e assim fixar
+ * os diversos conteúdos do javascript.
+ */
 var bodyElement = document.querySelector('body');
 var ulElement = document.querySelector('ul');
 
@@ -13,14 +18,16 @@ function search () {
       xhr.open('GET', 'https://api.github.com/users/'+ name +'/repos');
       xhr.send(null);
 
+      ulElement.innerHTML = "<li>Carregando...</li>";
+
       xhr.onreadystatechange = function(){
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log('Ok');
+            resolve();
             var obj = JSON.parse(xhr.responseText);
             renderRepositories(obj);
           } else {
-            reject('Erro');
+            reject();
           }
         }
       }
@@ -29,6 +36,7 @@ function search () {
     console.log('Ok!');
   })
   .catch(()=>{
+    ulElement.innerHTML = "<li>erro 404 - Usuário não encontrado</li>";
     console.warn('erro 404 - Usuário não encontrado');
   });
 }
